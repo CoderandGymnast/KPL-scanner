@@ -14,8 +14,8 @@
             // "preLaunchTask": "build", // NOTE: this will execute 'build' task in tasks.json
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/dm-scanner.exe",
-            "args": [".\\test\\example1.kpl"],
+            "program": "${workspaceFolder}/scanner.exe",
+            "args": [".\\test\\exceptions\\2.kpl"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
