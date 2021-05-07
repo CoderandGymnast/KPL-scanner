@@ -6,12 +6,17 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
+#include<stdbool.h>
 
 #include "reader.h"
 #include "charcode.h"
 #include "token.h"
 #include "error.h"
 
+#define DECIMAL 10
+#define MAX_NUMBER "18446744073709551615"
+#define MAX_NUMBER_LENGTH sizeof(MAX_NUMBER)/sizeof(MAX_NUMBER[0]) - 1
 
 extern int lineNo;
 extern int colNo;
@@ -52,8 +57,37 @@ Token* readIdentKeyword(void) {
   // TODO
 }
 
+bool isOverflow(char x[], int count) {
+
+	if(count < MAX_NUMBER_LENGTH) return false;
+	if(count > MAX_NUMBER_LENGTH) return true;
+	
+	for(int i = 0; i < count; i++)
+		if((int) x[i] > (int) MAX_NUMBER[i]) 
+			return true;
+
+	return false;
+}
+
 Token* readNumber(void) {
-  // TODO
+
+	int state = 10;
+	
+	Token* token = makeToken(TK_NUMBER, lineNo, colNo);	
+
+	int count = 0;
+	while(charCodes[currentChar] == CHAR_DIGIT) {
+		token->string[count++] = currentChar;
+		readChar();
+	}
+
+	token->string[count] = '\0';
+	state = 11;
+
+	if(isOverflow(token->string, count))
+    error(ERR_INTEGEROVERFLOW, lineNo, colNo);
+
+	return token;
 }
 
 Token* readConstChar(void) {

@@ -25,6 +25,9 @@ void error(ErrorCode err, int lineNo, int colNo) {
   case ERR_NUMBERTOOLONG:
       printf("%d-%d:%s\n", lineNo, colNo, ERM_NUMBERTOOLONG);
       break;
+ 	case ERR_INTEGEROVERFLOW:
+      printf("%d-%d:%s\n", lineNo, colNo, ERM_INTEGEROVERFLOW);
+      break;
   }
   exit(-1);
 }
