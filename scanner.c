@@ -108,6 +108,9 @@ Token *readConstChar(void)
 		token->tokenType = TK_NONE;
 		error(ERR_INVALIDCHARCONSTANT, lineNo, colNo);
 		return token;
+	} else if(charCodes[currentChar] == CHAR_BACKSLASH) {
+		state = 40;
+		readChar();
 	}
 
 	state = 35;
@@ -167,6 +170,11 @@ Token* getToken(void) {
 
 		token = makeToken(SB_SLASH, lineNo, colNo);
 		return token;
+	case CHAR_BACKSLASH:
+    // Token Backslash
+    token = makeToken(SB_BACKSLASH, lineNo, colNo);
+    readChar();
+    return token;
   case CHAR_EQ:
     // Token Equal
     token = makeToken(SB_EQ, lineNo, colNo);
@@ -335,6 +343,7 @@ void printToken(Token *token) {
   case SB_MINUS: printf("SB_MINUS\n"); break;
   case SB_TIMES: printf("SB_TIMES\n"); break;
   case SB_SLASH: printf("SB_SLASH\n"); break;
+	case SB_BACKSLASH: printf("SB_BACKSLASH\n"); break;
   case SB_LPAR: printf("SB_LPAR\n"); break;
   case SB_RPAR: printf("SB_RPAR\n"); break;
   case SB_LSEL: printf("SB_LSEL\n"); break;
@@ -367,7 +376,6 @@ int main(int argc, char *argv[]) {
     printf("scanner: no input file.\n");
     return -1;
   }
-
   if (scan(argv[1]) == IO_ERROR) {
     printf("Can\'t read input file!\n");
     return -1;
