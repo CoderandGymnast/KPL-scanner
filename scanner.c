@@ -31,26 +31,24 @@ void skipBlank() {
 	readChar();
 }
 
-void skipComment() {
+void skipComment()
+{
 
 	readChar();
-  int state = 3;
-  while ((currentChar != EOF) && (state < 5)) {
-    switch (charCodes[currentChar]) {
-    case CHAR_TIMES:
-      state = 4;
-      break;
-    case CHAR_RPAR:
-      if (state == 4) state = 5;
-      else state = 3;
-      break;
-    default:
-      state = 3;
-    }
-    readChar();
-  }
-  if (state != 5)
-    error(ERR_ENDOFCOMMENT, lineNo, colNo);
+	int startLine = lineNo;
+	int state = 3;
+	while ((currentChar != EOF) && (state < 4))
+	{
+
+		if (startLine < lineNo)
+		{
+			state = 4;
+		}
+
+		readChar();
+	}
+	if (state != 4)
+		error(ERR_ENDOFCOMMENT, lineNo, colNo);
 }
 
 Token* readIdentKeyword(void) {
@@ -157,10 +155,18 @@ Token* getToken(void) {
     readChar();
     return token;
   case CHAR_SLASH:
-    // Token Slash
-    token = makeToken(SB_SLASH, lineNo, colNo);
-    readChar();
-    return token;
+
+		readChar();
+
+		if (charCodes[currentChar] == CHAR_SLASH)
+		{
+
+			skipComment();
+			return getToken();
+		}
+
+		token = makeToken(SB_SLASH, lineNo, colNo);
+		return token;
   case CHAR_EQ:
     // Token Equal
     token = makeToken(SB_EQ, lineNo, colNo);
@@ -193,11 +199,6 @@ Token* getToken(void) {
       token->tokenType = SB_LSEL;
       readChar();
       return token;
-    case CHAR_TIMES:
-      // This is a comment so free the allocated token first then skip comments
-      free(token);
-      skipComment();
-      return getToken();
     case CHAR_SPACE:
       readChar();
       return getToken();

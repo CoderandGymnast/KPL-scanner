@@ -1,0 +1,4 @@
+PROGRAM Testcase2; 
+VAR a:INTEGER;
+BEGIN
+END.
