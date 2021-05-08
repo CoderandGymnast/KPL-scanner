@@ -102,7 +102,7 @@ Token *readConstChar(void)
 	if (charCodes[currentChar] == CHAR_SINGLEQUOTE)
 	{
 		token->string[0] = '\0';
-		readChar();
+		readChar(); // NOTE: to handle case x:='';
 		return token;
 	}
 	else if (charCodes[currentChar] == EOF)
@@ -125,7 +125,7 @@ Token *readConstChar(void)
 	}
 
 	state = 36;
-	readChar();
+	readChar(); // NOTE: to handle case x:='a';
 
 	return token;
 }
