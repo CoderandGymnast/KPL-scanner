@@ -90,8 +90,44 @@ Token* readNumber(void) {
 	return token;
 }
 
-Token* readConstChar(void) {
-  // TODO
+Token *readConstChar(void)
+{
+
+	int state = 34;
+
+	Token *token = makeToken(TK_CHAR, lineNo, colNo);
+
+	readChar();
+
+	if (charCodes[currentChar] == CHAR_SINGLEQUOTE)
+	{
+		token->string[0] = '\0';
+		readChar();
+		return token;
+	}
+	else if (charCodes[currentChar] == EOF)
+	{
+		token->tokenType = TK_NONE;
+		error(ERR_INVALIDCHARCONSTANT, lineNo, colNo);
+		return token;
+	}
+
+	state = 35;
+	token->string[0] = currentChar;
+	token->string[1] = '\0';
+	readChar();
+
+	if (charCodes[currentChar] != CHAR_SINGLEQUOTE)
+	{
+		token->tokenType = TK_NONE;
+		error(ERR_INVALIDCHARCONSTANT, lineNo, colNo);
+		return token;
+	}
+
+	state = 36;
+	readChar();
+
+	return token;
 }
 
 Token* getToken(void) {
