@@ -1,4 +1,4 @@
-PROGRAM Testcase2; 
+PROGRAM Testcase33; 
 VAR x:CHAR;
 BEGIN
 x:='abc';

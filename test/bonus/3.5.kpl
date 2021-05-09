@@ -1,4 +1,4 @@
-PROGRAM Testcase2; 
+PROGRAM Testcase35; 
 VAR x:CHAR;
 BEGIN
 x:='a

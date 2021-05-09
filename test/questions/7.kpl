@@ -1,5 +1,0 @@
-PROGRAM Testcase2; 
-VAR x:CHAR;
-BEGIN
-x:='\"';
-END.

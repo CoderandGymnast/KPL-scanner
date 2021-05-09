@@ -1,4 +1,4 @@
-PROGRAM Testcase2; 
+PROGRAM Testcase12; 
 VAR a:INTEGER;
 BEGIN
 END.

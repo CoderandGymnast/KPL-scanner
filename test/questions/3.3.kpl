@@ -1,0 +1,5 @@
+program Testcase33; 
+var x:char;
+begin
+x:='\'';
+end.
