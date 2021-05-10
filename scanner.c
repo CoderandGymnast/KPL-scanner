@@ -130,7 +130,7 @@ Token *readConstChar(void)
 	} else if(charCodes[currentChar] == CHAR_BACKSLASH) {
 		state = 40;
 		readChar();
-		if((charCodes[currentChar] != CHAR_SINGLEQUOTE) && (charCodes[currentChar] != CHAR_BACKSLASH)) { // NOTE: only allow ' and \.
+		if((charCodes[currentChar] != CHAR_SINGLEQUOTE) && (charCodes[currentChar] != CHAR_BACKSLASH) && (charCodes[currentChar] != CHAR_DOUBLEQUOTE)) { // NOTE: only allow ' and \.
 			token->tokenType = TK_NONE;
 			error(ERR_INVALIDCHARCONSTANT, lineNo, colNo);
 			return token;
