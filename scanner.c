@@ -15,7 +15,7 @@
 #include "error.h"
 
 #define DECIMAL 10
-#define MAX_NUMBER "18446744073709551615"
+#define MAX_NUMBER "4294967295" // UINT_MAX
 #define MAX_NUMBER_LENGTH sizeof(MAX_NUMBER)/sizeof(MAX_NUMBER[0]) - 1
 
 extern int lineNo;
