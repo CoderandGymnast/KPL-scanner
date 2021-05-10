@@ -47,7 +47,7 @@ void skipComment()
 
 		readChar();
 	}
-	if (state != 4)
+	if ((state != 4) && (currentChar != EOF))
 		error(ERR_ENDOFCOMMENT, lineNo, colNo);
 }
 
