@@ -47,8 +47,6 @@ void skipComment()
 
 		readChar();
 	}
-	if ((state != 43) && (currentChar != EOF))
-		error(ERR_ENDOFCOMMENT, lineNo, colNo);
 }
 
 Token* readIdentKeyword(void) {
