@@ -36,18 +36,18 @@ void skipComment()
 
 	readChar();
 	int startLine = lineNo;
-	int state = 3;
-	while ((currentChar != EOF) && (state < 4))
+	int state = 42;
+	while ((currentChar != EOF) && (state < 43))
 	{
 
 		if (startLine < lineNo)
 		{
-			state = 4;
+			state = 43;
 		}
 
 		readChar();
 	}
-	if ((state != 4) && (currentChar != EOF))
+	if ((state != 43) && (currentChar != EOF))
 		error(ERR_ENDOFCOMMENT, lineNo, colNo);
 }
 
