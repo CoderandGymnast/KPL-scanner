@@ -52,7 +52,28 @@ void skipComment()
 }
 
 Token* readIdentKeyword(void) {
-  // TODO
+
+  Token *token = makeToken(TK_IDENT, lineNo, colNo);
+
+  int count = 0;
+  while ((currentChar != EOF) &&  ((charCodes[currentChar] == CHAR_LETTER) || (charCodes[currentChar] == CHAR_DIGIT))) {
+    if (count <= MAX_IDENT_LEN) token->string[count++] = currentChar;
+    readChar();
+  }
+
+	token->string[count] = '\0';
+
+  if (count > MAX_IDENT_LEN) {
+    error(ERR_IDENTTOOLONG, token->lineNo, token->colNo);
+    return token;
+  }
+
+  token->tokenType = checkKeyword(token->string);
+
+  if (token->tokenType == TK_NONE)
+    token->tokenType = TK_IDENT;
+
+  return token;
 }
 
 bool isOverflow(char x[], int count) {
